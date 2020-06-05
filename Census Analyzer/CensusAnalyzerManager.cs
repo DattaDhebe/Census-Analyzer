@@ -41,11 +41,18 @@ namespace Census_Analyzer
                         csvData.Rows.Add(fieldData);
                     }
                 }
+                return csvData;
             }
-            catch (Exception)
+            catch (FileNotFoundException)
             {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.File_Not_Found, "");
             }
-            return csvData;
+            catch (ArgumentNullException)
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Empty_File, "");
+            }
+
+            
         }
     }
 }

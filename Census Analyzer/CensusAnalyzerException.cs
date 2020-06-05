@@ -7,14 +7,15 @@ namespace Census_Analyzer
 
     [Serializable]
     public class CensusAnalyzerException : Exception
-    {
+    {      
         public CensusAnalyzerException()
         {
         }
 
         public enum ExceptionType
         {
-            Empty_File, Wrong_Path
+            Empty_File, File_Not_Found,
+            Wrong_Delimeter, Invalid_Census_Data
         }
         public ExceptionType eType { get; set; }
 
@@ -26,5 +27,6 @@ namespace Census_Analyzer
         public CensusAnalyzerException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
     }
 }
