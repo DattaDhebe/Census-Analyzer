@@ -12,6 +12,7 @@ namespace Census_Analyzer_Test
         }
 
         public static string Census_CSV_File_Path = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.csv";
+        public static string Wrong_CSV_File_Path = @"IndiaStateCensusData.csv";
 
         [Test]
         public void GivenCensusCSVFile_ShouldReturnNumberOfRecords()
@@ -30,6 +31,19 @@ namespace Census_Analyzer_Test
             catch (CensusAnalyzerException e)
             {
                 Assert.AreEqual(CensusAnalyzerException.ExceptionType.Empty_File, e.eType);
+            }
+        }
+
+        [Test]
+        public void GivenWrongFilePath_ShouldReturnCustomException()
+        {
+            try
+            {
+                DataTable csvData = CensusAnalyzerManager.LoadCensusData(Wrong_CSV_File_Path);
+            }
+            catch (CensusAnalyzerException e)
+            {
+                Assert.AreEqual(CensusAnalyzerException.ExceptionType.Wrong_Path, e.eType);
             }
         }
 

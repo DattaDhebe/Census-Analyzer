@@ -14,7 +14,7 @@ namespace Census_Analyzer
 
         public enum ExceptionType
         {
-            Empty_File
+            Empty_File, Wrong_Path
         }
         public ExceptionType eType { get; set; }
 
