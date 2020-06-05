@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using Census_Analyzer;
+using System.Data;
 
 namespace Census_Analyzer_Test
 {
@@ -9,10 +11,13 @@ namespace Census_Analyzer_Test
         {
         }
 
+        public static string Census_CSV_File_Path = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.csv";
+
         [Test]
-        public void Test1()
+        public void GivenCensusCSVFile_ShouldReturnNumberOfRecords()
         {
-            Assert.Pass();
+            DataTable csvData = CensusAnalyzerManager.LoadCensusData(Census_CSV_File_Path);
+            Assert.AreEqual(29, csvData.Rows.Count);
         }
     }
 }
