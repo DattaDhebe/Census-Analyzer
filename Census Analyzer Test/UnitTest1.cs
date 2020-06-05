@@ -19,5 +19,20 @@ namespace Census_Analyzer_Test
             DataTable csvData = CensusAnalyzerManager.LoadCensusData(Census_CSV_File_Path);
             Assert.AreEqual(29, csvData.Rows.Count);
         }
+
+        [Test]
+        public void GivenEmptyFile_ShouldReturnCustomException()
+        {
+            try
+            {
+                DataTable csvData = CensusAnalyzerManager.LoadCensusData("");
+            }
+            catch (CensusAnalyzerException e)
+            {
+                Assert.AreEqual(CensusAnalyzerException.ExceptionType.Empty_File, e.eType);
+            }
+        }
+
+
     }
 }
