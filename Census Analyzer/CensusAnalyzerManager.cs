@@ -12,7 +12,6 @@ namespace Census_Analyzer
         public static DataTable LoadCensusData(string csv_file_path)
         {
             DataTable csvData = new DataTable();
-
             try
             {
                 using (TextFieldParser csvReader = new TextFieldParser(csv_file_path))
