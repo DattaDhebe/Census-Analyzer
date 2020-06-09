@@ -14,53 +14,54 @@ namespace Census_Analyzer_Test
         public static string Census_CSV_File_Path = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.csv";
         public static string Wrong_CSV_File_Path = @"IndiaStateCensusData.csv";
         public static string Wrong_Extension_File_Path = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.txt";
+        public static string Wrong_Delimeter_File_Path = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\WrongDelimeter.csv";
 
+        /// <summary>
+        ///Test for checking number of Records
+        /// </summary>
         [Test]
         public void GivenCensusCSVFile_ShouldReturnNumberOfRecords()
         {
-            DataTable csvData = CensusAnalyzerManager.LoadCensusData(Census_CSV_File_Path);
-            Assert.AreEqual(29, csvData.Rows.Count);
+            Assert.AreEqual(30, CensusAnalyzerManager.Records(Census_CSV_File_Path));
         }
-
-        [Test]
-        public void GivenEmptyFile_ShouldReturnCustomException()
-        {
-            try
-            {
-                DataTable csvData = CensusAnalyzerManager.LoadCensusData("");
-            }
-            catch (CensusAnalyzerException e)
-            {
-                Assert.AreEqual(CensusAnalyzerException.ExceptionType.Empty_File, e.eType);
-            }
-        }
-
+        /// <summary>
+        ///If file incorrect then throw custom exception
+        /// </summary>
         [Test]
         public void GivenWrongFilePath_ShouldReturnCustomException()
         {
-            try
-            {
-                DataTable csvData = CensusAnalyzerManager.LoadCensusData(Wrong_CSV_File_Path);
-            }
-            catch (CensusAnalyzerException e)
-            {
-                Assert.AreEqual(CensusAnalyzerException.ExceptionType.File_Not_Found, e.eType);
-            }
-        }
 
+            CensusAnalyzerManager stateCensus = new CensusAnalyzerManager(Wrong_CSV_File_Path);
+            Assert.AreEqual("File Not Found", stateCensus.NumberOfRecords());
+        }
+        /// <summary>
+        ///If file incorrect then throw custom exception
+        /// </summary>
         [Test]
-        public void GivenStateCensusDataFile_WhenImproperDelimiter_ReturnsException()
+        public void GivenStateCensusDataFile_WhenDataImproper_ShouldReturnsException()
         {
-            try
-            {
-                DataTable csvData = CensusAnalyzerManager.LoadCensusData(Wrong_Extension_File_Path);
-            }
-            catch (CensusAnalyzerException e)
-            {
-                Assert.AreEqual(CensusAnalyzerException.ExceptionType.Wrong_Delimeter, e.eType);
-            }
+            CensusAnalyzerManager stateCensus = new CensusAnalyzerManager(Wrong_Extension_File_Path);
+            Assert.AreEqual("File format Incorrect", stateCensus.NumberOfRecords());
         }
+        /// <summary>
+        ///csv file Correct but delimiter Incorrect
+        /// </summary>
+        [Test]
+        public void GivenStateCensusDataFile_WhenImproperDelimiter_ShouldReturnsException()
+        {
 
-
+            CensusAnalyzerManager stateCensus = new CensusAnalyzerManager(Wrong_Delimeter_File_Path);
+            Assert.AreEqual("File Not Found", stateCensus.NumberOfRecords());
+        }
+        /// <summary>
+        ///csv file Correct but delimiter Incorrect
+        /// </summary>
+        [Test]
+        public void GivenStateCensusDataFile_WhenImproperHeader_ShouldReturnsException()
+        {
+            CensusAnalyzerManager stateCensus = new CensusAnalyzerManager(Wrong_Delimeter_File_Path);
+            Assert.AreEqual("File Not Found", stateCensus.NumberOfRecords());
+        }
     }
+
 }
