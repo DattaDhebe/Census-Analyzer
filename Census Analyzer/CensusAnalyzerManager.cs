@@ -8,21 +8,25 @@ namespace Census_Analyzer
     {
         public string filepath;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CensusAnalyzerManager(string filepath)
         {
             this.filepath = filepath;
         }
-
+        /// <summary>
+        /// Main Method
+        /// </summary>
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Census Analyzer");
+            Console.WriteLine("Welcome to India state census Analyzer");
         }
 
         /// <summary>
-        ///Method to find Number of records in file
+        ///Method to find Number of records in file for state census data
         /// </summary>
-        public static int NumberOfRecords(string filepath, char delimiter = ',', 
-                                          string header = "State,Population,AreaInSqKm,DensityPerSqKm")
+        public static int NumberOfRecords(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm")
         {
             int count = 0;
             try
@@ -36,15 +40,13 @@ namespace Census_Analyzer
 
                         if (str.Split(delimiter).Length != 4 && str.Split(delimiter).Length != 2)
                         {
-                            throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
-                                                              .Wrong_Delimeter, "Incorrect Delimiter");
+                            throw new CensusAnalyzerException("Incorrect Delimiter");
                         }
                     }
                     //checking Incorrect header
                     if (!data[0].Equals(header))
                     {
-                        throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
-                                                          .Header_Incorrect, "Incorrect header");
+                        throw new CensusAnalyzerException("Incorrect header");
                     }
                     IEnumerable<string> ele = data;
                     foreach (var elements in ele)
@@ -53,16 +55,14 @@ namespace Census_Analyzer
                     }
                     return count;
                 }
-                else //if file type incorrect then throw exception
+                else                                                   //if file type incorrect then throw exception
                 {
-                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
-                                                      .Invalid_Census_Data, "File type incorrect");
+                    throw new CensusAnalyzerException("File type incorrect");
                 }
             }
-            catch (FileNotFoundException) //if file path incorrect then throw exception
+            catch (FileNotFoundException)                              //if file path incorrect then throw exception
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
-                                                  .File_Not_Found, "file path incorrect");
+                throw new CensusAnalyzerException("file path incorrect");
             }
             catch (CensusAnalyzerException)
             {
