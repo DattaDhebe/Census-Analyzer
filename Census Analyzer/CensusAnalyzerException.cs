@@ -15,7 +15,8 @@ namespace Census_Analyzer
         public enum ExceptionType
         {
             Empty_File, File_Not_Found,
-            Wrong_Delimeter, Invalid_Census_Data
+            Wrong_Delimeter, Invalid_Census_Data,
+            Header_Incorrect
         }
         public ExceptionType eType { get; set; }
 

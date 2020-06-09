@@ -1,58 +1,65 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System;
 using System.IO;
-using System.Text;
 
 namespace Census_Analyzer
 {
     public class CensusAnalyzerManager
     {
-        public static DataTable LoadCensusData(string csv_file_path)
+        public string filepath;
+        public char delimiter = ',';
+        
+        public CensusAnalyzerManager(string filepath)
         {
-            DataTable csvData = new DataTable();
-
+            this.filepath = filepath;
+        }
+        public CensusAnalyzerManager(string filepath, char delimiter)
+        {
+            this.filepath = filepath;
+            this.delimiter = delimiter;
+        }
+       
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to India state census Analyzer");
+        }
+        public static object Records(string filepath)
+        {
+            string[] a = File.ReadAllLines(filepath);
+            return a.Length;
+        }
+        /// <summary>
+        ///Method to find Number of records in file
+        /// </summary>   
+        public object NumberOfRecords()
+        {
             try
             {
-                using (TextFieldParser csvReader = new TextFieldParser(csv_file_path))
+                if (Path.GetExtension(filepath) != ".csv")
                 {
-                    csvReader.SetDelimiters(new string[] { "," });
-                    csvReader.HasFieldsEnclosedInQuotes = true;
-                    string[] colFields = csvReader.ReadFields();
-                    foreach (string column in colFields)
+                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "File format Incorrect");
+                }
+                if (filepath != @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.csv")
+                {
+                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.File_Not_Found, "File Not Found");
+                }
+                string[] data = File.ReadAllLines(filepath);
+                if (data[0] != "State,Population,AreaInSqKm,DensityPerSqKm")
+                {
+                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Header_Incorrect, "Header Incorrect");
+                }
+                foreach (var element in data)
+                {
+                    if (!element.Contains(delimiter))
                     {
-                        DataColumn datecolumn = new DataColumn(column);
-                        datecolumn.AllowDBNull = true;
-                        csvData.Columns.Add(datecolumn);
-                    }
-
-                    while (!csvReader.EndOfData)
-                    {
-                        string[] fieldData = csvReader.ReadFields();
-                        //Making empty value as null
-                        for (int i = 0; i < fieldData.Length; i++)
-                        {
-                            if (fieldData[i] == "")
-                            {
-                                fieldData[i] = null;
-                            }
-                        }
-                        csvData.Rows.Add(fieldData);
+                        throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Wrong_Delimeter, "Delimiter Incorrect");
                     }
                 }
-                return csvData;
+                return data.Length - 1;
             }
-            catch (FileNotFoundException)
+            catch (CensusAnalyzerException e)
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.File_Not_Found, "");
+                return e.Message;
             }
-            catch (ArgumentNullException)
-            {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Empty_File, "");
-            }
-
-            
         }
     }
 }
