@@ -5,29 +5,15 @@ using System.Runtime.Serialization;
 namespace Census_Analyzer
 {
 
-    [Serializable]
     public class CensusAnalyzerException : Exception
-    {      
-        public CensusAnalyzerException()
-        {
-        }
+    {
+        public string message;
 
-        public enum ExceptionType
+        public string GetMessage { get => this.message; }
+        //constructor
+        public CensusAnalyzerException(string message)
         {
-            Empty_File, File_Not_Found,
-            Wrong_Delimeter, Invalid_Census_Data,
-            Header_Incorrect
+            this.message = message;
         }
-        public ExceptionType eType { get; set; }
-
-        public CensusAnalyzerException(ExceptionType eType, string message) : base(message)
-        {
-            this.eType = eType;
-        }
-
-        public CensusAnalyzerException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
     }
 }
