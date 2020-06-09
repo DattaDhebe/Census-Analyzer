@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Census_Analyzer
@@ -6,63 +7,66 @@ namespace Census_Analyzer
     public class CensusAnalyzerManager
     {
         public string filepath;
-        public char delimiter = ',';
-        
+
         public CensusAnalyzerManager(string filepath)
         {
             this.filepath = filepath;
         }
-        public CensusAnalyzerManager(string filepath, char delimiter)
-        {
-            this.filepath = filepath;
-            this.delimiter = delimiter;
-        }
-       
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to India state census Analyzer");
+            Console.WriteLine("Welcome to Census Analyzer");
         }
-        public static object Records(string filepath)
-        {
-            string[] a = File.ReadAllLines(filepath);
-            return a.Length;
-        }
+
         /// <summary>
         ///Method to find Number of records in file
-        /// </summary>   
-        public object NumberOfRecords()
+        /// </summary>
+        public static int NumberOfRecords(string filepath, char delimiter = ',', 
+                                          string header = "State,Population,AreaInSqKm,DensityPerSqKm")
         {
-<<<<<<< HEAD
-            DataTable csvData = new DataTable();
-=======
->>>>>>> UC1_LoadCensusFileAndCheckRecords
+            int count = 0;
             try
             {
-                if (Path.GetExtension(filepath) != ".csv")
+                if (Path.GetExtension(filepath) == ".csv")
                 {
-                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "File format Incorrect");
-                }
-                if (filepath != @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.csv")
-                {
-                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.File_Not_Found, "File Not Found");
-                }
-                string[] data = File.ReadAllLines(filepath);
-                if (data[0] != "State,Population,AreaInSqKm,DensityPerSqKm")
-                {
-                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Header_Incorrect, "Header Incorrect");
-                }
-                foreach (var element in data)
-                {
-                    if (!element.Contains(delimiter))
+                    string[] data = File.ReadAllLines(filepath);
+                    //check delimiter is correct or incorrect
+                    foreach (string str in data)
                     {
-                        throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Wrong_Delimeter, "Delimiter Incorrect");
+
+                        if (str.Split(delimiter).Length != 4 && str.Split(delimiter).Length != 2)
+                        {
+                            throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
+                                                              .Wrong_Delimeter, "Incorrect Delimiter");
+                        }
                     }
+                    //checking Incorrect header
+                    if (!data[0].Equals(header))
+                    {
+                        throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
+                                                          .Header_Incorrect, "Incorrect header");
+                    }
+                    IEnumerable<string> ele = data;
+                    foreach (var elements in ele)
+                    {
+                        count++;
+                    }
+                    return count;
                 }
-                return data.Length - 1;
+                else //if file type incorrect then throw exception
+                {
+                    throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
+                                                      .Invalid_Census_Data, "File type incorrect");
+                }
             }
-            catch (CensusAnalyzerException e)
+            catch (FileNotFoundException) //if file path incorrect then throw exception
             {
-                return e.Message;
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType
+                                                  .File_Not_Found, "file path incorrect");
+            }
+            catch (CensusAnalyzerException)
+            {
+                throw;
             }
         }
     }
