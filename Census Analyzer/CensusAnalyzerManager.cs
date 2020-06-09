@@ -32,10 +32,6 @@ namespace Census_Analyzer
         /// </summary>   
         public object NumberOfRecords()
         {
-<<<<<<< HEAD
-            DataTable csvData = new DataTable();
-=======
->>>>>>> UC1_LoadCensusFileAndCheckRecords
             try
             {
                 if (Path.GetExtension(filepath) != ".csv")
