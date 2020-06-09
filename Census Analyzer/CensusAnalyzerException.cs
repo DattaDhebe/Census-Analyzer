@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
-
 
 namespace Census_Analyzer
 {
@@ -16,4 +14,5 @@ namespace Census_Analyzer
             this.message = message;
         }
     }
+
 }

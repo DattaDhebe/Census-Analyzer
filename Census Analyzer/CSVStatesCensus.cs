@@ -1,8 +1,4 @@
-﻿using Census_Analyzer;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System;
 
 namespace Census_Analyzer
 {
@@ -16,7 +12,7 @@ namespace Census_Analyzer
         /// <summary>
         /// Constructor
         /// </summary>
-
+        public delegate int GetCountFromCSVStates(string path, char delimiter = ',', string header = "SrNo,State,TIN,StateCode");
         public static int getDataFromCSVFile(string statecode, char delimiter = ',', string header = "SrNo,State,TIN,StateCode")
         {
             try

@@ -1,8 +1,5 @@
 using NUnit.Framework;
 using Census_Analyzer;
-using System.Data;
-using static Census_Analyzer.StateCensusAnalyzer;
-using static Census_Analyzer.CSVStatesCensus;
 
 namespace Census_Analyzer_Test
 {
@@ -25,6 +22,7 @@ namespace Census_Analyzer_Test
             int actual = StateCensusAnalyzer.NumberOfRecords(filepath);
             Assert.AreEqual(30, actual);
         }
+
         /// <summary>
         ///TC-1.2:If file incorrect then throw custom exception
         /// </summary>

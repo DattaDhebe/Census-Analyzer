@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace Census_Analyzer
 {
@@ -27,7 +25,7 @@ namespace Census_Analyzer
         /// <summary>
         ///Method to find Number of records in file for state census data
         /// </summary>
-        //public delegate int GetCSVCount(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm");
+        public delegate int GetCSVCount(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm");
         public static int NumberOfRecords(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm")
         {
             try
