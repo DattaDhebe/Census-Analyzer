@@ -5,7 +5,7 @@ namespace Census_Analyzer
     /// <summary>
     ///Method to find Number of records in file for StateCode csv file
     /// </summary>
-    public class CSVStatesCensus
+    public class CSVStatesCensus : CSVBuilder
     {
         public string statecode;
 
@@ -29,7 +29,15 @@ namespace Census_Analyzer
                 throw;
             }
         }
+        
+        int CSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
+        {
+            throw new NotImplementedException();
+        }
+
+        int CSVBuilder.getDataFromCSVFile(string statecode, char delimiter, string header)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
-
-

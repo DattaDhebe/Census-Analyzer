@@ -2,17 +2,10 @@
 
 namespace Census_Analyzer
 {
-    public class StateCensusAnalyzer
+    public class StateCensusAnalyzer : CSVBuilder
     {
         public string filepath;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public StateCensusAnalyzer(string filepath)
-        {
-            this.filepath = filepath;
-        }
         /// <summary>
         /// Main Method
         /// </summary>
@@ -41,6 +34,14 @@ namespace Census_Analyzer
             {
                 throw;
             }
+        }
+        int CSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
+        {
+            throw new NotImplementedException();
+        }
+        int CSVBuilder.getDataFromCSVFile(string statecode, char delimiter, string header)
+        {
+            throw new NotImplementedException();
         }
     }
 }
