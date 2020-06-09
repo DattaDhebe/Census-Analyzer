@@ -22,7 +22,7 @@ namespace Census_Analyzer_Test
         [Test]
         public void GivenCensusCSVFile_ShouldReturnNumberOfRecords()
         {
-            Assert.AreEqual(30, CensusAnalyzerManager.Records(Census_CSV_File_Path));
+            Assert.AreEqual(30, CensusAnalyzerManager.NumberOfRecords(Census_CSV_File_Path));
         }
         /// <summary>
         ///If file incorrect then throw custom exception
