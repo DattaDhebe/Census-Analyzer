@@ -1,5 +1,5 @@
 ﻿using ChoETL;
-using CensusAnalyzer;
+using Census_Analyzer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
