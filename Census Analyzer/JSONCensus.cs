@@ -24,7 +24,9 @@ namespace Census_Analyser
                 )
             {
                 using (var w = new ChoJSONWriter(sb))
+                {
                     w.Write(p);
+                }
             }
             File.WriteAllText(jsonFilepath, sb.ToString());
             JArray arr = CSVOperations.SortJsonBasedOnKey(jsonFilepath, key);
