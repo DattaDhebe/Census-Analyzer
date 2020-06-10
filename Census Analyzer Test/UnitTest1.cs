@@ -1,10 +1,7 @@
 using NUnit.Framework;
-using System;
 using static Census_Analyzer.StateCensusAnalyzer;
 using static Census_Analyzer.StateCodeCensusDAO;
 using Census_Analyser;
-using Newtonsoft.Json.Linq;
-
 
 namespace Census_Analyzer
 {
@@ -16,6 +13,7 @@ namespace Census_Analyzer
         public string uscensus = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\USCensusData.csv";
         public string jsonPathstateCensus = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\StateCensusData.JSON";
         public string jsonPathstatecode = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\StateCode.JSON";
+        public string jsonPathUSCensus = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\USCensusData.JSON";
 
         GetCSVCount csvstatecensus = CSVFactory.DelegateofStateCensusAnalyse();
         GetCountFromCSVStates statesCodeCSV = CSVFactory.DelegateofStatecode();
@@ -152,6 +150,38 @@ namespace Census_Analyzer
             string lastValue = JSONCensus.SortCSVFileWriteInJsonAndReturnLastData(filepath, jsonPathstateCensus, "DensityPerSqKm");
             Assert.AreEqual("86", lastValue);
         }
-
+        /// <summary>
+        /// UC-7 :Givens the state of the CSV and json path to add into json after sorted based on population and density
+        /// </summary> 
+        [Test]
+        public void GivenCSVAndJsonPathToAddIntoJSon_AfterSortingOnArea_WhenAnalyse_ReturnlastState()
+        {
+            string lastValue = JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(filepath, jsonPathstateCensus, "AreaInSqKm");
+            Assert.AreEqual("342239", lastValue);
+        }
+        /// <summary>
+        /// UC-9 :Givens the state of the CSV and json path to add into json after sorted based on population using UScensus
+        /// </summary> 
+        [Test]
+        public void GivenCSVAndJsonPathToAddIntoJSon_AfterSortingOnPopulation_WhenAnalyse_ReturnMostPopulationState()
+        {
+            int count = JSONCensus.SortCSVFileWriteInJsonAndReturnNumberOfStatesSorted(uscensus, jsonPathUSCensus, "Population");
+            Assert.NotZero(count);
+        }
+        /// <summary>
+        /// UC-10:  the state of the CSV and json path to add into json after sorted based on population and density
+        /// </summary> 
+        [Test]
+        public void GivenCSVAndJsonPathToAddIntoJSon_AfterSortingOnPopulationDensity_WhenAnalyse_ReturnPopulationDensity()
+        {
+            string PopulationDensity = JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(uscensus, jsonPathUSCensus, "Population Density");
+            Assert.AreEqual("3805.61", PopulationDensity);
+        }
+        [Test]
+        public void GivenCSVAndJsonPathToAddIntoJSon_AfterSortingOnDensityArea_WhenAnalyse_ReturnPopulationArea()
+        {
+            string Totalarea = JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(uscensus, jsonPathUSCensus, "Total area");
+            Assert.AreEqual("1723338.01", Totalarea);
+        }
     }
 }

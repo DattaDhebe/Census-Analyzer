@@ -22,6 +22,9 @@ namespace Census_Analyzer
             string[] array = File.ReadAllLines(path);
             return array.Length - 1;
         }
+        /// <summary>
+        ///Method to find Number of records in file for state census dataand State code using map
+        /// </summary>
         public static int CountRecords(string[] records)
         {
             int k = 1;
@@ -42,6 +45,9 @@ namespace Census_Analyzer
             }
             return map.Count;
         }
+        /// <summary>
+        ///Method to find Number of records in file for US Census data using map
+        /// </summary>
         public static int Records(string[] records)
         {
             int k = 1;
@@ -186,7 +192,7 @@ namespace Census_Analyzer
             return val;
         }
         /// <summary>
-        ///sorting for state population
+        ///method to check population is sorted or not
         /// </summary>
         public static int SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(string jsonPath, string key)
         {
@@ -208,6 +214,9 @@ namespace Census_Analyzer
             }
             return count;
         }
+        /// <summary>
+        ///sorting for state population,Density and area
+        /// </summary>
         public static JArray SortJsonBasedOnKeyAndValueIsNumber(string jsonPath, string key)
         {
             string jsonFile = File.ReadAllText(jsonPath);
