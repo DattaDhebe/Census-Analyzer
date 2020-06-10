@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static Census_Analyzer.StateCensusAnalyzer;
+﻿using static Census_Analyzer.StateCensusAnalyzer;
 using static Census_Analyzer.StateCodeCensusDAO;
-using static Census_Analyzer.USCensusData;
+using static Census_Analyzer.USCensusDataDAO;
 
 namespace Census_Analyzer
 {
@@ -17,9 +14,9 @@ namespace Census_Analyzer
         {
             return new StateCodeCensusDAO();
         }
-        public static USCensusData InstanceOfUSCensus()
+        public static USCensusDataDAO InstanceOfUSCensus()
         {
-            return new USCensusData();
+            return new USCensusDataDAO();
         }
         /// <summary>
         ///Method to create object for State Census Data
@@ -44,8 +41,8 @@ namespace Census_Analyzer
         /// </summary>
         public static GetUSCSVCount DelegateofUSCensusData()
         {
-            USCensusData csvUSCensus = InstanceOfUSCensus();
-            GetUSCSVCount getCSVCount = new GetUSCSVCount(USCensusData.USCensusRecords);
+            USCensusDataDAO csvUSCensus = InstanceOfUSCensus();
+            GetUSCSVCount getCSVCount = new GetUSCSVCount(USCensusDataDAO.USCensusRecords);
             return getCSVCount;
         }
     }

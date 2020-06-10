@@ -1,7 +1,4 @@
-﻿using Census_Analyzer;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System;
 
 namespace Census_Analyzer
 {
@@ -43,6 +40,12 @@ namespace Census_Analyzer
             }
         }
 
+
+        public string CheckForState(string jsonPathstateCensus, string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
+
         int ICSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
         {
             throw new NotImplementedException();
@@ -53,7 +56,7 @@ namespace Census_Analyzer
             throw new NotImplementedException();
         }
 
-        public string CheckForState(string jsonPathstateCensus, string v1, string v2)
+        int ICSVBuilder.USCensusRecords(string uscensus)
         {
             throw new NotImplementedException();
         }

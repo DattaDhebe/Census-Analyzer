@@ -1,8 +1,4 @@
-﻿using Census_Analyzer;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System;
 
 namespace Census_Analyzer
 {
@@ -29,12 +25,18 @@ namespace Census_Analyzer
                 throw;
             }
         }
+
         int ICSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
         {
             throw new NotImplementedException();
         }
 
         int ICSVBuilder.getDataFromCSVFile(string statecode, char delimiter, string header)
+        {
+            throw new NotImplementedException();
+        }
+
+        int ICSVBuilder.USCensusRecords(string uscensus)
         {
             throw new NotImplementedException();
         }
