@@ -11,10 +11,10 @@ namespace Census_Analyzer
     public class Tests
     {
 
-        public string filepath = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensusData.csv";
-        public string statecode = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCode.csv";
-        public string jsonPathstateCensus = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensusData.JSON";
-        public string jsonPathstatecode = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCode.JSON";
+        public string filepath = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.csv";
+        public string statecode = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCode.csv";
+        public string jsonPathstateCensus = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\StateCensusData.JSON";
+        public string jsonPathstatecode = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\StateCode.JSON";
 
         GetCSVCount csvstatecensus = CSVFactory.DelegateofStateCensusAnalyse();
         GetCountFromCSVStates statesCodeCSV = CSVFactory.DelegateofStatecode();

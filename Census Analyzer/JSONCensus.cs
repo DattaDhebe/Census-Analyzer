@@ -23,10 +23,8 @@ namespace Census_Analyser
                 .WithFirstLineHeader()
                 )
             {
-                using (var w = new ChoJSONWriter(sb))
-                {
-                    w.Write(p);
-                }
+                using var w = new ChoJSONWriter(sb);
+                w.Write(p);
             }
             File.WriteAllText(jsonFilepath, sb.ToString());
             JArray arr = CSVOperations.SortJsonBasedOnKey(jsonFilepath, key);
@@ -46,8 +44,8 @@ namespace Census_Analyser
                 .WithFirstLineHeader()
                 )
             {
-                using (var w = new ChoJSONWriter(sb))
-                    w.Write(p);
+                using var w = new ChoJSONWriter(sb);
+                w.Write(p);
             }
             File.WriteAllText(jsonFilepath, sb.ToString());
             JArray arr = CSVOperations.SortJsonBasedOnKey(jsonFilepath, key);
@@ -67,8 +65,8 @@ namespace Census_Analyser
                 .WithFirstLineHeader()
                 )
             {
-                using (var w = new ChoJSONWriter(sb))
-                    w.Write(p);
+                using var w = new ChoJSONWriter(sb);
+                w.Write(p);
             }
             File.WriteAllText(jsonFilepath, sb.ToString());
             int count = CSVOperations.SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(jsonFilepath, key);
