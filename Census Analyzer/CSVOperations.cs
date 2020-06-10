@@ -42,6 +42,31 @@ namespace Census_Analyzer
             }
             return map.Count;
         }
+        public static int Records(string[] records)
+        {
+            int k = 1;
+            Dictionary<int, Dictionary<string, string>> map = new Dictionary<int, Dictionary<string, string>>();
+            string[] key = records[0].Split(',');
+            for (int i = 1; i < records.Length; i++)
+            {
+                string[] value = records[i].Split(',');
+                Dictionary<string, string> subMap = new Dictionary<string, string>()
+                {
+                  { key[0], value[0] },
+                  { key[1], value[1] },
+                  { key[2], value[2] },
+                  { key[3], value[3] },
+                  { key[4], value[4] },
+                  { key[5], value[5] },
+                  { key[6], value[6] },
+                  { key[7], value[7] },
+                  { key[8], value[8] },
+                };
+                map.Add(k, subMap);
+                k++;
+            }
+            return map.Count;
+        }
         /// <summary>
         ///Method to find file path is correct or incorrect
         /// </summary>
@@ -130,9 +155,9 @@ namespace Census_Analyzer
                 {
                     if (stateCensusrrary[j][key].ToString().CompareTo(stateCensusrrary[j + 1][key].ToString()) > 0)
                     {
-                        var tamp = stateCensusrrary[j + 1];
+                        var temp = stateCensusrrary[j + 1];
                         stateCensusrrary[j + 1] = stateCensusrrary[j];
-                        stateCensusrrary[j] = tamp;
+                        stateCensusrrary[j] = temp;
                     }
                 }
             }
@@ -174,14 +199,32 @@ namespace Census_Analyzer
                 {
                     if (stateCensusrrary[j][key].ToString().CompareTo(stateCensusrrary[j + 1][key].ToString()) > 0)
                     {
-                        var tamp = stateCensusrrary[j + 1];
+                        var temp = stateCensusrrary[j + 1];
                         stateCensusrrary[j + 1] = stateCensusrrary[j];
-                        stateCensusrrary[j] = tamp;
+                        stateCensusrrary[j] = temp;
                         count++;
                     }
                 }
             }
             return count;
+        }
+        public static JArray SortJsonBasedOnKeyAndValueIsNumber(string jsonPath, string key)
+        {
+            string jsonFile = File.ReadAllText(jsonPath);
+            JArray stateCensusrrary = JArray.Parse(jsonFile);
+            for (int i = 0; i < stateCensusrrary.Count - 1; i++)
+            {
+                for (int j = 0; j < stateCensusrrary.Count - i - 1; j++)
+                {
+                    if ((int)stateCensusrrary[j][key] > (int)stateCensusrrary[j + 1][key])
+                    {
+                        var temp = stateCensusrrary[j + 1];
+                        stateCensusrrary[j + 1] = stateCensusrrary[j];
+                        stateCensusrrary[j] = temp;
+                    }
+                }
+            }
+            return stateCensusrrary;
         }
     }
 }
