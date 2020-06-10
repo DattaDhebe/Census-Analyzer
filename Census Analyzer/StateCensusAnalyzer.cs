@@ -1,36 +1,41 @@
-﻿using System;
+﻿using Census_Analyzer;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Census_Analyzer
 {
     public class StateCensusAnalyzer : ICSVBuilder
     {
         public string filepath;
+        private static string jsonPathstateCensus;
+
         /// <summary>
         /// Main Method
         /// </summary>
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to India state census Analyzer");
+            string val = CSVOperations.RetriveFirstDataOnKey(jsonPathstateCensus, "State");
+            string lat = CSVOperations.RetriveLastDataOnKey(jsonPathstateCensus, "State");
 
+            Console.WriteLine(val);
+            Console.WriteLine(lat);
         }
 
         /// <summary>
         ///Method to find Number of records in file for state census data
         /// </summary>
-        public delegate int GetCSVCount();
-        CSVBuilder csvBuilder = new CSVBuilder();
-
-        public static GetCSVCount numberOfRecords { get; internal set; }
-
-        public int ToGetDataFromCSVFile()
+        public delegate int GetCSVCount(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm");
+        public static int numberOfRecords(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm")
         {
             try
             {
-                string pa = csvBuilder.Path;
-                char del = csvBuilder.Delimeter;
-                string header = csvBuilder.Header;
-
-                int count = CSVOperations.CountRecords(csvBuilder.Records);
+                bool type = CSVOperations.CheckFileType(filepath, ".csv");
+                string[] records = CSVOperations.ReadCSVFile(filepath);
+                bool delimit = CSVOperations.CheckForDelimiter(records, delimiter);
+                bool head = CSVOperations.CheckForHeader(records, header);
+                int count = CSVOperations.CountRecords(records);
                 return count;
             }
             catch (Exception)
@@ -39,12 +44,17 @@ namespace Census_Analyzer
             }
         }
 
-        int ICSVBuilder.numberOfRecords()
+        int ICSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
         {
             throw new NotImplementedException();
         }
 
-        int ICSVBuilder.getDataFromCSVFile()
+        int ICSVBuilder.getDataFromCSVFile(string statecode, char delimiter, string header)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string CheckForState(string jsonPathstateCensus, string v1, string v2)
         {
             throw new NotImplementedException();
         }

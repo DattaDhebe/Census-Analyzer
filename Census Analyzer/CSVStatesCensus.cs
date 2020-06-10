@@ -16,21 +16,16 @@ namespace Census_Analyzer
         /// <summary>
         /// Constructor
         /// </summary>
-        public delegate int GetCountFromCSVStates();
-
-        CSVBuilder csvBuilder = new CSVBuilder();
-
-        public static GetCountFromCSVStates getDataFromCSVFile { get; internal set; }
-
-        public int ToGetDataFromCSVFile()
+        public delegate int GetCountFromCSVStates(string path, char delimiter = ',', string header = "SrNo,State,TIN,StateCode");
+        public static int getDataFromCSVFile(string statecode, char delimiter = ',', string header = "SrNo,State,TIN,StateCode")
         {
             try
             {
-                string pa = csvBuilder.Path;
-                char del = csvBuilder.Delimeter;
-                string header = csvBuilder.Header;
-
-                int count = CSVOperations.CountRecords(csvBuilder.Records);
+                bool type = CSVOperations.CheckFileType(statecode, ".csv");
+                string[] records = CSVOperations.ReadCSVFile(statecode);
+                bool delimit = CSVOperations.CheckForDelimiter(records, delimiter);
+                bool head = CSVOperations.CheckForHeader(records, header);
+                int count = CSVOperations.CountRecords(records);
                 return count;
             }
             catch (Exception)
@@ -38,13 +33,12 @@ namespace Census_Analyzer
                 throw;
             }
         }
-
-        int ICSVBuilder.numberOfRecords()
+        int ICSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
         {
             throw new NotImplementedException();
         }
 
-        int ICSVBuilder.getDataFromCSVFile()
+        int ICSVBuilder.getDataFromCSVFile(string statecode, char delimiter, string header)
         {
             throw new NotImplementedException();
         }
