@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Census_Analyzer
 {
@@ -9,16 +7,14 @@ namespace Census_Analyzer
         /// <summary>
         ///Method to find Number of records in file for US Census Data csv file
         /// </summary>
-        public delegate int GetUSCSVCount(string uscensus, char delimiter = ',', string header = "StateId,State,Population,Housing units,Total area,Water area,Land area,Population Density,Housing Density");
-        public static int USCensusRecords(string uscensus, char delimiter = ',', string header = "StateId,State,Population,Housing units,Total area,Water area,Land area,Population Density,Housing Density")
+        public delegate int GetUSCSVCount(string uscensus);
+        public static int USCensusRecords(string uscensus)
         {
             try
             {
                 bool type = CSVOperations.CheckFileType(uscensus, ".csv");
                 string[] records = CSVOperations.ReadCSVFile(uscensus);
-                bool delimit = CSVOperations.CheckForDelimiter(records, delimiter);
-                bool head = CSVOperations.CheckForHeader(records, header);
-                int count = CSVOperations.Records(records);
+                int count = CSVOperations.CountRecords(records);
                 return count;
             }
             catch (Exception)

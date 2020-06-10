@@ -70,7 +70,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenCSVStateCodeFile_WhenAnalyse_ShouldRecordNumberOfRecordmatcheStateCode()
         {
-            int actual = statesCodeCSV(statecode);
+            int actual = CSVOperations.numberOfRecords(statecode);
             Assert.AreEqual(37, actual);
         }
         /// <summary>

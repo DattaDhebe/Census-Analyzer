@@ -1,10 +1,6 @@
-﻿using Census_Analyzer;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Census_Analyzer
 {
@@ -14,7 +10,7 @@ namespace Census_Analyzer
     public class CSVOperations
     {
         /// <summary>
-        ///Method to find Number of records in file for state census data using map
+        ///Method to find Number of records in file for state census data 
         /// </summary>
         public delegate int GetCSVCount(string path);
         public static int numberOfRecords(string path)
@@ -23,32 +19,9 @@ namespace Census_Analyzer
             return array.Length - 1;
         }
         /// <summary>
-        ///Method to find Number of records in file for state census dataand State code using map
-        /// </summary>
-        public static int CountRecords(string[] records)
-        {
-            int k = 1;
-            Dictionary<int, Dictionary<string, string>> map = new Dictionary<int, Dictionary<string, string>>();
-            string[] key = records[0].Split(',');
-            for (int i = 1; i < records.Length; i++)
-            {
-                string[] value = records[i].Split(',');
-                Dictionary<string, string> subMap = new Dictionary<string, string>()
-                {
-                  { key[0], value[0] },
-                  { key[1], value[1] },
-                  { key[2], value[2] },
-                  { key[3], value[3] },
-                };
-                map.Add(k, subMap);
-                k++;
-            }
-            return map.Count;
-        }
-        /// <summary>
         ///Method to find Number of records in file for US Census data using map
         /// </summary>
-        public static int Records(string[] records)
+        public static int CountRecords(string[] records)
         {
             int k = 1;
             Dictionary<int, Dictionary<string, string>> map = new Dictionary<int, Dictionary<string, string>>();
