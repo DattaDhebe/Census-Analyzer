@@ -31,13 +31,12 @@ namespace Census_Analyzer
             {
                 string[] value = records[i].Split(',');
                 Dictionary<string, string> subMap = new Dictionary<string, string>()
-              {
+                {
                   { key[0], value[0] },
                   { key[1], value[1] },
                   { key[2], value[2] },
                   { key[3], value[3] },
-              };
-
+                };
                 map.Add(k, subMap);
                 k++;
             }
@@ -122,7 +121,9 @@ namespace Census_Analyzer
         public static JArray SortJsonBasedOnKey(string jsonPath, string key)
         {
             string jsonFile = File.ReadAllText(jsonPath);
+            //parsing a json file
             JArray stateCensusrrary = JArray.Parse(jsonFile);
+            //sorting in alphabatically
             for (int i = 0; i < stateCensusrrary.Count - 1; i++)
             {
                 for (int j = 0; j < stateCensusrrary.Count - i - 1; j++)
@@ -137,17 +138,25 @@ namespace Census_Analyzer
             }
             return stateCensusrrary;
         }
+        /// <summary>
+        ///Method for Find first state data from json file and sort alphabatically
+        /// </summary>
         public static string RetriveFirstDataOnKey(string jsonPath, string key)
         {
             string jfile = File.ReadAllText(jsonPath);
             JArray jArray = JArray.Parse(jfile);
+            //Find First value in file wchich is alphabatically sorted
             string val = jArray[0][key].ToString();
             return val;
         }
+        /// <summary>
+        ///Method for Find Last test data from json file and sort alphabatically
+        /// </summary>
         public static string RetriveLastDataOnKey(string jsonPath, string key)
         {
             string jfile = File.ReadAllText(jsonPath);
             JArray jArray = JArray.Parse(jfile);
+            //Find last value in file which is alphabatically sorted
             string val = jArray[jArray.Count - 1][key].ToString();
             return val;
         }
