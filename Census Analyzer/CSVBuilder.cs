@@ -4,9 +4,53 @@ using System.Text;
 
 namespace Census_Analyzer
 {
-    public interface CSVBuilder
+    public class CSVBuilder
     {
-        public int numberOfRecords(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm");
-        public int getDataFromCSVFile(string statecode, char delimiter = ',', string header = "SrNo,State,TIN,StateCode");
+        public CSVBuilder() { }
+
+        private static string path;
+        private static char delimeter;
+        private static string header;
+        private string[] data;
+
+        public CSVBuilder(string _path, char _delimeter, string _header)
+        {
+            path = _path;
+            delimeter = _delimeter;
+            header = _header;
+        }
+
+        public string Path
+        {
+            get
+            {
+                CSVOperations.CheckFileType(path, ".csv");
+                data = CSVOperations.ReadCSVFile(path);
+                return path;
+            }
+        }
+        public char Delimeter
+        {
+            get
+            {
+                CSVOperations.CheckForDelimiter(data, delimeter);
+                return delimeter;
+            }
+        }
+        public string Header
+        {
+            get
+            {
+                CSVOperations.CheckForHeader(data, header);
+                return header;
+            }
+        }
+        public string[] Records
+        {
+            get
+            {
+                return data;
+            }
+        }
     }
 }

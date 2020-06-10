@@ -2,10 +2,9 @@
 
 namespace Census_Analyzer
 {
-    public class StateCensusAnalyzer : CSVBuilder
+    public class StateCensusAnalyzer : ICSVBuilder
     {
         public string filepath;
-
         /// <summary>
         /// Main Method
         /// </summary>
@@ -18,16 +17,20 @@ namespace Census_Analyzer
         /// <summary>
         ///Method to find Number of records in file for state census data
         /// </summary>
-        public delegate int GetCSVCount(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm");
-        public static int NumberOfRecords(string filepath, char delimiter = ',', string header = "State,Population,AreaInSqKm,DensityPerSqKm")
+        public delegate int GetCSVCount();
+        CSVBuilder csvBuilder = new CSVBuilder();
+
+        public static GetCSVCount numberOfRecords { get; internal set; }
+
+        public int ToGetDataFromCSVFile()
         {
             try
             {
-                bool type = CSVOperations.CheckFileType(filepath, ".csv");
-                string[] records = CSVOperations.ReadCSVFile(filepath);
-                bool delimit = CSVOperations.CheckForDelimiter(records, delimiter);
-                bool head = CSVOperations.CheckForHeader(records, header);
-                int count = CSVOperations.CountRecords(records);
+                string pa = csvBuilder.Path;
+                char del = csvBuilder.Delimeter;
+                string header = csvBuilder.Header;
+
+                int count = CSVOperations.CountRecords(csvBuilder.Records);
                 return count;
             }
             catch (Exception)
@@ -35,11 +38,13 @@ namespace Census_Analyzer
                 throw;
             }
         }
-        int CSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
+
+        int ICSVBuilder.numberOfRecords()
         {
             throw new NotImplementedException();
         }
-        int CSVBuilder.getDataFromCSVFile(string statecode, char delimiter, string header)
+
+        int ICSVBuilder.getDataFromCSVFile()
         {
             throw new NotImplementedException();
         }
