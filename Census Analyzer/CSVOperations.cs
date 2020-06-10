@@ -14,12 +14,12 @@ namespace Census_Analyzer
         /// </summary>
         public static int CountRecords(string[] records)
         {
-            int count = 0;
+            List<string> list = new List<string>();
             foreach (string str in records)
             {
-                count++;
+                list.Add(str);
             }
-            return count;
+            return list.Count;
         }
         /// <summary>
         ///Method to find file path is correct or incorrect

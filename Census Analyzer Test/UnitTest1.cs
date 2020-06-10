@@ -12,9 +12,9 @@ namespace Census_Analyzer
         public string filepath = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensusData.csv";
         public string statecode = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCode.csv";
 
+        CSVBuilder csvBuilder;
         GetCSVCount csvstatecensus = CSVFactory.DelegateofStateCensusAnalyse();
         GetCountFromCSVStates statesCodeCSV = CSVFactory.DelegateofStatecode();
-        CSVBuilder csvBuilder;
 
         /// <summary>
         ///TC-1.1: Test for checking number of Records
@@ -22,7 +22,7 @@ namespace Census_Analyzer
         [Test]
         public void GiventheStatesCensusCSVfile_WhenAnalyse_ShouldRecordNumberOfRecordmatches()
         {
-            csvBuilder = new CSVBuilder(filepath, ',', "State,Population,AreaInSqKm,DensityPerSqKm");
+            CSVBuilder csvBuilder = new CSVBuilder(filepath, ',', "State,Population,AreaInSqKm,DensityPerSqKm");
             int actual = csvstatecensus();
             Assert.AreEqual(30, actual);
         }
@@ -32,7 +32,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectfile_WhenAnalyse_ShouldThrowCensusuAnalyserException()
         {
-            csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensus.csv", ',', "State,Population,AreaInSqKm,DensityPerSqKm");
+            CSVBuilder csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensus.csv", ',', "State,Population,AreaInSqKm,DensityPerSqKm");
             var actual = Assert.Throws<CensusAnalyzerException>(() => csvstatecensus());
             Assert.AreEqual("file path incorrect", actual.GetMessage);
         }
@@ -42,7 +42,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectfileType_WhenAnalyse_ShouldThrowCensusuAnalyserException()
         {
-            csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensusData.txt", ',', "State,Population,AreaInSqKm,DensityPerSqKm");
+            CSVBuilder csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensusData.txt", ',', "State,Population,AreaInSqKm,DensityPerSqKm");
             var incorrectpath = Assert.Throws<CensusAnalyzerException>(() => csvstatecensus());
             Assert.AreEqual("File type incorrect", incorrectpath.GetMessage);
         }
@@ -52,7 +52,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectDelimiter_WhenAnalyse_ShouldThrowCensusAnalyserException()
         {
-            csvBuilder = new CSVBuilder(filepath, ',', "State,Population,AreaInSqKm,DensityPerSqKm");
+            CSVBuilder csvBuilder = new CSVBuilder(filepath, ',', "State,Population,AreaInSqKm,DensityPerSqKm");
             var incorrectDelimiter = Assert.Throws<CensusAnalyzerException>(() => csvstatecensus());
             Assert.AreEqual("Incorrect Delimiter", incorrectDelimiter.GetMessage);
         }
@@ -62,7 +62,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectHeader_WhenAnalyse_ShouldThrowCensusAnalyserException()
         {
-            csvBuilder = new CSVBuilder(filepath, ',', "Ste,Population,AreaInSqKm,DensityPerSqKm");
+            CSVBuilder csvBuilder = new CSVBuilder(filepath, ',', "Ste,Population,AreaInSqKm,DensityPerSqKm");
             var incorrectHeader = Assert.Throws<CensusAnalyzerException>(() => csvstatecensus());
             Assert.AreEqual("Incorrect header", incorrectHeader.GetMessage);
         }
@@ -73,7 +73,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenCSVStateCodeFile_WhenAnalyse_ShouldRecordNumberOfRecordmatcheStateCode()
         {
-            csvBuilder = new CSVBuilder(statecode, ',', "SrNo,State,TIN,StateCode");
+            CSVBuilder csvBuilder = new CSVBuilder(statecode, ',', "SrNo,State,TIN,StateCode");
             int actual = statesCodeCSV();
             Assert.AreEqual(38, actual);
         }
@@ -83,7 +83,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectfile_WhenAnalyse_ShouldThrowExceptionforstatecodeCSV()
         {
-            csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusData\StateCode.csv", ',', "SrNo,State,TIN,StateCode");
+            CSVBuilder csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusData\StateCode.csv", ',', "SrNo,State,TIN,StateCode");
             var actual = Assert.Throws<CensusAnalyzerException>(() => statesCodeCSV());
             Assert.AreEqual("file path incorrect", actual.GetMessage);
         }
@@ -93,7 +93,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectfileType_WhenAnalyse_ShouldThrowExceptionforstatecodeCSV()
         {
-            csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCode.txt", ',', "SrNo,State,TIN,StateCode");
+            CSVBuilder csvBuilder = new CSVBuilder(@"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCode.txt", ',', "SrNo,State,TIN,StateCode");
             var incorrectpath = Assert.Throws<CensusAnalyzerException>(() => statesCodeCSV());
             Assert.AreEqual("File type incorrect", incorrectpath.GetMessage);
         }
@@ -103,7 +103,7 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectDelimiter_WhenAnalyse_ShouldThrowExceptionforstatecodeCSV()
         {
-            csvBuilder = new CSVBuilder(statecode, ',', "SrNo,State,TIN,StateCode");
+            CSVBuilder csvBuilder = new CSVBuilder(statecode, ',', "SrNo,State,TIN,StateCode");
             var incorrectDelimiter = Assert.Throws<CensusAnalyzerException>(() => statesCodeCSV());
             Assert.AreEqual("Incorrect Delimiter", incorrectDelimiter.GetMessage);
         }
@@ -113,10 +113,9 @@ namespace Census_Analyzer
         [Test]
         public void GivenIncorrectHeader_WhenAnalyse_ShouldThrowExceptionforstatecodeCSV()
         {
-            csvBuilder = new CSVBuilder(statecode, ',', "Sr,State,TIN,StateCode");
+            CSVBuilder csvBuilder = new CSVBuilder(statecode, ',', "Sr,State,TIN,StateCode");
             var incorrectHeader = Assert.Throws<CensusAnalyzerException>(() => statesCodeCSV());
             Assert.AreEqual("Incorrect header", incorrectHeader.GetMessage);
         }
-
     }
 }
