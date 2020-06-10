@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static Census_Analyzer.StateCensusAnalyzer;
 using static Census_Analyzer.CSVStatesCensus;
+using static Census_Analyzer.USCensusData;
 
 namespace Census_Analyzer
 {
@@ -16,7 +17,10 @@ namespace Census_Analyzer
         {
             return new CSVStatesCensus();
         }
-
+        public static USCensusData InstanceOfUSCensus()
+        {
+            return new USCensusData();
+        }
         public static GetCSVCount DelegateofStateCensusAnalyse()
         {
             StateCensusAnalyzer csvStateCensus = InstanceOfStateCensusAnalyzer();
@@ -28,6 +32,12 @@ namespace Census_Analyzer
             CSVStatesCensus statesCodeCSV = InstanceOfCSVStatesCensus();
             GetCountFromCSVStates referToCSVSates = new GetCountFromCSVStates(CSVStatesCensus.getDataFromCSVFile);
             return referToCSVSates;
+        }
+        public static GetUSCSVCount DelegateofUSCensusData()
+        {
+            USCensusData csvUSCensus = InstanceOfUSCensus();
+            GetUSCSVCount getCSVCount = new GetUSCSVCount(USCensusData.USCensusRecords);
+            return getCSVCount;
         }
     }
 }

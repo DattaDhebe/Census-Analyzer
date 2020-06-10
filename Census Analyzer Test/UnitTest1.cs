@@ -13,6 +13,7 @@ namespace Census_Analyzer
 
         public string filepath = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCensusData.csv";
         public string statecode = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\IndiaStateCode.csv";
+        public string uscensus = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\USCensusData.csv";
         public string jsonPathstateCensus = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\StateCensusData.JSON";
         public string jsonPathstatecode = @"C:\Users\Datta\source\repos\Census Analyzer\Census Analyzer Test\StateCode.JSON";
 
