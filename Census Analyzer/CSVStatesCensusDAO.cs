@@ -6,17 +6,13 @@ using System.Text;
 
 namespace Census_Analyzer
 {
-    /// <summary>
-    ///Method to find Number of records in file for StateCode csv file
-    /// </summary>
     public class StateCodeCensusDAO : ICSVBuilder
     {
         public string statecode;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
         public delegate int GetCountFromCSVStates(string path, char delimiter = ',', string header = "SrNo,State,TIN,StateCode");
+        /// <summary>
+        ///Method to find Number of records in file for StateCode csv file
+        /// </summary>
         public static int getDataFromCSVFile(string statecode, char delimiter = ',', string header = "SrNo,State,TIN,StateCode")
         {
             try
