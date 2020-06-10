@@ -22,7 +22,6 @@ namespace Census_Analyzer
             Console.WriteLine(val);
             Console.WriteLine(lat);
         }
-
         /// <summary>
         ///Method to find Number of records in file for state census data
         /// </summary>

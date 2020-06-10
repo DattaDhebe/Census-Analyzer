@@ -14,16 +14,34 @@ namespace Census_Analyzer
     public class CSVOperations
     {
         /// <summary>
-        ///Method to find Number of records in file for state census data
+        ///Method to find Number of records in file for state census data using map
         /// </summary>
+        public delegate int GetCSVCount(string path);
+        public static int numberOfRecords(string path)
+        {
+            string[] array = File.ReadAllLines(path);
+            return array.Length - 1;
+        }
         public static int CountRecords(string[] records)
         {
-            List<string> list = new List<string>();
-            foreach (string str in records)
+            int k = 1;
+            Dictionary<int, Dictionary<string, string>> map = new Dictionary<int, Dictionary<string, string>>();
+            string[] key = records[0].Split(',');
+            for (int i = 1; i < records.Length; i++)
             {
-                list.Add(str);
+                string[] value = records[i].Split(',');
+                Dictionary<string, string> subMap = new Dictionary<string, string>()
+              {
+                  { key[0], value[0] },
+                  { key[1], value[1] },
+                  { key[2], value[2] },
+                  { key[3], value[3] },
+              };
+
+                map.Add(k, subMap);
+                k++;
             }
-            return list.Count;
+            return map.Count;
         }
         /// <summary>
         ///Method to find file path is correct or incorrect

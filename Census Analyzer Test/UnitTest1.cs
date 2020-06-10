@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using Census_Analyzer;
 using static Census_Analyzer.StateCensusAnalyzer;
 using static Census_Analyzer.CSVStatesCensus;
 using Census_Analyser;
@@ -9,15 +10,15 @@ namespace Census_Analyzer
 {
     public class Tests
     {
-        
+
         public string filepath = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensusData.csv";
         public string statecode = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCode.csv";
         public string jsonPathstateCensus = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCensusData.JSON";
-        public string jsonPathstatecode = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusDatas\StateCode.JSON";
-        
+        public string jsonPathstatecode = @"C:\Users\boss\source\repos\CensusAnalyzerProblem\CensusData\StateCode.JSON";
+
+
         GetCSVCount csvstatecensus = CSVFactory.DelegateofStateCensusAnalyse();
         GetCountFromCSVStates statesCodeCSV = CSVFactory.DelegateofStatecode();
-
 
         /// <summary>
         ///TC-1.1: Test for checking number of Records
@@ -25,8 +26,8 @@ namespace Census_Analyzer
         [Test]
         public void GiventheStatesCensusCSVfile_WhenAnalyse_ShouldRecordNumberOfRecordmatches()
         {
-            int actual = csvstatecensus(filepath);
-            Assert.AreEqual(30, actual);
+            int actual = CSVOperations.numberOfRecords(filepath);
+            Assert.AreEqual(29, actual);
         }
         /// <summary>
         ///TC-1.2:If file incorrect then throw custom exception
@@ -72,7 +73,7 @@ namespace Census_Analyzer
         public void GivenCSVStateCodeFile_WhenAnalyse_ShouldRecordNumberOfRecordmatcheStateCode()
         {
             int actual = statesCodeCSV(statecode);
-            Assert.AreEqual(38, actual);
+            Assert.AreEqual(37, actual);
         }
         /// <summary>
         ///TC-2.2:If file incorrect then throw custom exception for statecode csv
@@ -111,7 +112,7 @@ namespace Census_Analyzer
             Assert.AreEqual("Incorrect header", incorrectHeader.GetMessage);
         }
         /// <summary>
-        /// Givens the first state of the CSV and json path to add into j son after sorting when analyse return.
+        ///UC3: Givens the first state of the CSV and json path to add into j son after sorting when analyse return.
         /// </summary>
         [Test]
         public void GivenCSVAndJsonPathToAddIntoJSon_AfterSorting_WhenAnalyse_ReturnFirstandLastState()
@@ -120,6 +121,17 @@ namespace Census_Analyzer
             Assert.AreEqual("Andhra Pradesh", firstValue);
             string lastValue = JSONCensus.SortCSVFileWriteInJsonAndReturnLastData(filepath, jsonPathstateCensus, "State");
             Assert.AreEqual("West Bengal", lastValue);
+        }
+        /// <summary>
+        /// UC4:Givens the state of the CSV and json path to add into j son after sorting when analyse returnlast
+        /// </summary>
+        [Test]
+        public void GivenCSVStateCodeAndJsonPathToAddIntoJSon_AfterSorting_WhenAnalyse_ReturnFirstandLastState()
+        {
+            string firstValue = JSONCensus.SortCSVFileWriteInJsonAndReturnFirstData(statecode, jsonPathstatecode, "StateCode");
+            Assert.AreEqual("AD", firstValue);
+            string lastValue = JSONCensus.SortCSVFileWriteInJsonAndReturnLastData(statecode, jsonPathstatecode, "StateCode");
+            Assert.AreEqual("WB", lastValue);
         }
     }
 }
