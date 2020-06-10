@@ -9,7 +9,7 @@ namespace Census_Analyzer
     /// <summary>
     ///Method to find Number of records in file for StateCode csv file
     /// </summary>
-    public class CSVStatesCensus : ICSVBuilder
+    public class StateCodeCensusDAO : ICSVBuilder
     {
         public string statecode;
 
