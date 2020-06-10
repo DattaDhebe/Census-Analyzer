@@ -160,5 +160,28 @@ namespace Census_Analyzer
             string val = jArray[jArray.Count - 1][key].ToString();
             return val;
         }
+        /// <summary>
+        ///sorting for state population
+        /// </summary>
+        public static int SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(string jsonPath, string key)
+        {
+            int count = 0;
+            string jsonFile = File.ReadAllText(jsonPath);
+            JArray stateCensusrrary = JArray.Parse(jsonFile);
+            for (int i = 0; i < stateCensusrrary.Count - 1; i++)
+            {
+                for (int j = 0; j < stateCensusrrary.Count - i - 1; j++)
+                {
+                    if (stateCensusrrary[j][key].ToString().CompareTo(stateCensusrrary[j + 1][key].ToString()) > 0)
+                    {
+                        var tamp = stateCensusrrary[j + 1];
+                        stateCensusrrary[j + 1] = stateCensusrrary[j];
+                        stateCensusrrary[j] = tamp;
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
     }
 }

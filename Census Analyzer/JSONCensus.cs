@@ -12,6 +12,9 @@ namespace Census_Analyser
 {
     public class JSONCensus
     {
+        /// <summary>
+        ///Method for sort First value from json file
+        /// </summary>
         public static string SortCSVFileWriteInJsonAndReturnFirstData(string filePath, string jsonFilepath, string key)
         {
             string re = File.ReadAllText(filePath);
@@ -30,6 +33,9 @@ namespace Census_Analyser
 
             return CSVOperations.RetriveFirstDataOnKey(jsonFilepath, key);
         }
+        /// <summary>
+        ///Method for sort last value from json file
+        /// </summary>
         public static string SortCSVFileWriteInJsonAndReturnLastData(string filePath, string jsonFilepath, string key)
         {
             string re = File.ReadAllText(filePath);
@@ -47,6 +53,24 @@ namespace Census_Analyser
             File.WriteAllText(jsonFilepath, jsonArr);
 
             return CSVOperations.RetriveLastDataOnKey(jsonFilepath, key);
+        }
+        /// <summary>
+        ///sorting the state for population
+        /// </summary>
+        public static int SortCSVFileWriteInJsonAndReturnNumberOfStatesSorted(string filePath, string jsonFilepath, string key)
+        {
+            string re = File.ReadAllText(filePath);
+            StringBuilder sb = new StringBuilder();
+            using (var p = ChoCSVReader.LoadText(re)
+                .WithFirstLineHeader()
+                )
+            {
+                using (var w = new ChoJSONWriter(sb))
+                    w.Write(p);
+            }
+            File.WriteAllText(jsonFilepath, sb.ToString());
+            int count = CSVOperations.SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(jsonFilepath, key);
+            return count;
         }
     }
 }
