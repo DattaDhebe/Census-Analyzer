@@ -26,12 +26,12 @@ namespace Census_Analyzer
             }
         }
 
-        int ICSVBuilder.numberOfRecords(string filepath, char delimiter, string header)
+        int ICSVBuilder.NumberOfRecords(string filepath, char delimiter, string header)
         {
             throw new NotImplementedException();
         }
 
-        int ICSVBuilder.getDataFromCSVFile(string statecode, char delimiter, string header)
+        int ICSVBuilder.GetDataFromCSVFile(string statecode, char delimiter, string header)
         {
             throw new NotImplementedException();
         }

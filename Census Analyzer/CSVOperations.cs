@@ -13,7 +13,7 @@ namespace Census_Analyzer
         ///Method to find Number of records in file for state census data 
         /// </summary>
         public delegate int GetCSVCount(string path);
-        public static int numberOfRecords(string path)
+        public static int NumberOfRecords(string path)
         {
             string[] array = File.ReadAllLines(path);
             return array.Length - 1;
@@ -190,7 +190,7 @@ namespace Census_Analyzer
         /// <summary>
         ///sorting for state population,Density and area
         /// </summary>
-        public static JArray SortJsonBasedOnKeyAndValueIsNumber(string jsonPath, string key)
+        public static JArray SortJsonBasedOnKeyAndValueIsNumber(string jsonPath, string sortBy)
         {
             string jsonFile = File.ReadAllText(jsonPath);
             JArray stateCensusrrary = JArray.Parse(jsonFile);
@@ -198,7 +198,7 @@ namespace Census_Analyzer
             {
                 for (int j = 0; j < stateCensusrrary.Count - i - 1; j++)
                 {
-                    if ((int)stateCensusrrary[j][key] > (int)stateCensusrrary[j + 1][key])
+                    if ((int)stateCensusrrary[j][sortBy] > (int)stateCensusrrary[j + 1][sortBy])
                     {
                         var temp = stateCensusrrary[j + 1];
                         stateCensusrrary[j + 1] = stateCensusrrary[j];

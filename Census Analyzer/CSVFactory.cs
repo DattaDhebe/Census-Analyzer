@@ -24,7 +24,7 @@ namespace Census_Analyzer
         public static GetCSVCount DelegateofStateCensusAnalyse()
         {
             StateCensusAnalyzer csvStateCensus = InstanceOfStateCensusAnalyzer();
-            GetCSVCount getCSVCount = new GetCSVCount(StateCensusAnalyzer.numberOfRecords);
+            GetCSVCount getCSVCount = new GetCSVCount(StateCensusAnalyzer.NumberOfRecords);
             return getCSVCount;
         }
         /// <summary>
