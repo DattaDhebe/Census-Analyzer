@@ -236,7 +236,7 @@ namespace Census_Analyzer
         /// <summary>
         /// UC-10 : the state of the CSV and json path to add into json after sorted based on population and density
         /// </summary> 
-       // [Test]
+        [Test]
         public void GivenCSVAndJsonPathToAddIntoJSon_AfterSortingOnPopulationDensity_WhenAnalyse_ReturnPopulationDensity()
         {
             string PopulationDensity = JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(Csv_USCensus_File_Path, USCensus_Json_File_Path, "Population Density");
@@ -245,7 +245,7 @@ namespace Census_Analyzer
         /// <summary>
         /// UC-11 : Given State Census Data After Sorting on Density Area Should Return Population Area
         /// </summary>
-       // [Test]
+        [Test]
         public void GivenCSVAndJsonPathToAddIntoJSon_AfterSortingOnDensityArea_WhenAnalyse_ReturnPopulationArea()
         {
             string Totalarea = JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(Csv_USCensus_File_Path, USCensus_Json_File_Path, "Total area");

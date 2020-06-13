@@ -122,7 +122,7 @@ namespace Census_Analyzer
         /// <summary>
         ///Method for sorting
         /// </summary>
-        public static JArray SortJsonBasedOnKey(string jsonPath, string key)
+        public static JArray SortJsonBasedOnKey(string jsonPath, string sortBy)
         {
             string jsonFile = File.ReadAllText(jsonPath);
             //parsing a json file
@@ -132,7 +132,7 @@ namespace Census_Analyzer
             {
                 for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                 {
-                    if (CensusArrary[j][key].ToString().CompareTo(CensusArrary[j + 1][key].ToString()) > 0)
+                    if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
                     {
                         var temp = CensusArrary[j + 1];
                         CensusArrary[j + 1] = CensusArrary[j];
@@ -145,29 +145,29 @@ namespace Census_Analyzer
         /// <summary>
         ///Method for Find first state data from json file and sort alphabatically
         /// </summary>
-        public static string RetriveFirstDataOnKey(string jsonPath, string key)
+        public static string RetriveFirstDataOnKey(string jsonPath, string sortBy)
         {
             string jfile = File.ReadAllText(jsonPath);
             JArray jArray = JArray.Parse(jfile);
             //Find First value in file wchich is alphabatically sorted
-            string val = jArray[0][key].ToString();
+            string val = jArray[0][sortBy].ToString();
             return val;
         }
         /// <summary>
         ///Method for Find Last test data from json file and sort alphabatically
         /// </summary>
-        public static string RetriveLastDataOnKey(string jsonPath, string key)
+        public static string RetriveLastDataOnKey(string jsonPath, string sortBy)
         {
             string jfile = File.ReadAllText(jsonPath);
             JArray jArray = JArray.Parse(jfile);
             //Find last value in file which is alphabatically sorted
-            string val = jArray[jArray.Count - 1][key].ToString();
+            string val = jArray[jArray.Count - 1][sortBy].ToString();
             return val;
         }
         /// <summary>
         ///method to check population is sorted or not
         /// </summary>
-        public static int SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(string jsonPath, string key)
+        public static int SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(string jsonPath, string sortBy)
         {
             int count = 0;
             string jsonFile = File.ReadAllText(jsonPath);
@@ -176,7 +176,7 @@ namespace Census_Analyzer
             {
                 for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                 {
-                    if (CensusArrary[j][key].ToString().CompareTo(CensusArrary[j + 1][key].ToString()) > 0)
+                    if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
                     {
                         var temp = CensusArrary[j + 1];
                         CensusArrary[j + 1] = CensusArrary[j];

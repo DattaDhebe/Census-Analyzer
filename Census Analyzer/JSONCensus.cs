@@ -14,17 +14,8 @@ namespace Census_Analyser
         /// </summary>
         public static string SortCSVFileWriteInJsonAndReturnFirstData(string filePath, string jsonFilepath, string sortBy)
         {
-            string read = File.ReadAllText(filePath);
-            StringBuilder stringBuilder = new StringBuilder();
-            using (var loadText = ChoCSVReader.LoadText(read) .WithFirstLineHeader())
-            {
-                using (var w = new ChoJSONWriter(stringBuilder))w.Write(loadText); 
-            }
-            File.WriteAllText(jsonFilepath, stringBuilder.ToString());
-            JArray arr = CSVOperations.SortJsonBasedOnKey(jsonFilepath, sortBy);
-            var jsonArray = JsonConvert.SerializeObject(arr, Formatting.Indented);
-            File.WriteAllText(jsonFilepath, jsonArray);
-
+            LoadCSVData(filePath, jsonFilepath, sortBy);
+            ConvertInJArrayFormat(jsonFilepath, sortBy);
             return CSVOperations.RetriveFirstDataOnKey(jsonFilepath, sortBy);
         }
         /// <summary>
@@ -32,18 +23,8 @@ namespace Census_Analyser
         /// </summary>
         public static string SortCSVFileWriteInJsonAndReturnLastData(string filePath, string jsonFilepath, string sortBy)
         {
-            string read = File.ReadAllText(filePath);
-            StringBuilder stringBuilder = new StringBuilder();
-            using (var loadText = ChoCSVReader.LoadText(read).WithFirstLineHeader())
-            {
-                using (var w = new ChoJSONWriter(stringBuilder))
-                    w.Write(loadText);
-            }
-            File.WriteAllText(jsonFilepath, stringBuilder.ToString());
-            JArray arr = CSVOperations.SortJsonBasedOnKey(jsonFilepath, sortBy);
-            var jsonArr = JsonConvert.SerializeObject(arr, Formatting.Indented);
-            File.WriteAllText(jsonFilepath, jsonArr);
-
+            LoadCSVData(filePath, jsonFilepath, sortBy);
+            ConvertInJArrayFormat(jsonFilepath, sortBy);
             return CSVOperations.RetriveLastDataOnKey(jsonFilepath, sortBy);
         }
         /// <summary>
@@ -51,21 +32,20 @@ namespace Census_Analyser
         /// </summary>
         public static int SortCSVFileWriteInJsonAndReturnNumberOfStatesSorted(string filePath, string jsonFilepath, string sortBy)
         {
-            string read = File.ReadAllText(filePath);
-            StringBuilder stringBuilder = new StringBuilder();
-            using (var loadText = ChoCSVReader.LoadText(read).WithFirstLineHeader())
-            {
-                using (var w = new ChoJSONWriter(stringBuilder))
-                    w.Write(loadText);
-            }
-            File.WriteAllText(jsonFilepath, stringBuilder.ToString());
-            int count = CSVOperations.SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(jsonFilepath, sortBy);
-            return count;
+            LoadCSVData(filePath, jsonFilepath, sortBy);
+            return CSVOperations.SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(jsonFilepath, sortBy);
         }
         /// <summary>
         ///sorting the state for population, Density and Area
         /// </summary>
         public static string SortCSVFileOnNumbersAndWriteInJsonAndReturnData(string filePath, string jsonFilepath, string sortBy)
+        {
+            LoadCSVData(filePath, jsonFilepath, sortBy);
+            ConvertInJArrayFormat(jsonFilepath, sortBy);
+            return CSVOperations.RetriveLastDataOnKey(jsonFilepath, sortBy);
+        }
+
+        public static string LoadCSVData(string filePath, string jsonFilePath, string sortBy)
         {
             string read = File.ReadAllText(filePath);
             StringBuilder stringBuilder = new StringBuilder();
@@ -74,12 +54,16 @@ namespace Census_Analyser
                 using (var w = new ChoJSONWriter(stringBuilder))
                     w.Write(loadText);
             }
-            File.WriteAllText(jsonFilepath, stringBuilder.ToString());
-            JArray arr = CSVOperations.SortJsonBasedOnKeyAndValueIsNumber(jsonFilepath, sortBy);
-            var jsonArr = JsonConvert.SerializeObject(arr, Formatting.Indented);
-            File.WriteAllText(jsonFilepath, jsonArr);
+            File.WriteAllText(jsonFilePath, stringBuilder.ToString());
+            return null;
+        }
 
-            return CSVOperations.RetriveLastDataOnKey(jsonFilepath, sortBy);
+        public static string ConvertInJArrayFormat(string jsonFilepath, string sortBy)
+        {
+            JArray arr = CSVOperations.SortJsonBasedOnKey(jsonFilepath, sortBy);
+            var jsonArray = JsonConvert.SerializeObject(arr, Formatting.Indented);
+            File.WriteAllText(jsonFilepath, jsonArray);
+            return null;
         }
     }
 }
