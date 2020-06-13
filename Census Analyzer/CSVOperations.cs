@@ -112,7 +112,7 @@ namespace Census_Analyzer
                 {
                     return true;
                 }
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Header_Incorrect,"Incorrect header");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Header_Incorrect, "Incorrect header");
             }
             catch (CensusAnalyzerException)
             {
