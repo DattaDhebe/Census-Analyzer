@@ -58,7 +58,7 @@ namespace Census_Analyzer
             }
             catch (FileNotFoundException)
             {
-                throw new CensusAnalyzerException("file path incorrect");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.File_Not_Found, "file path incorrect");
             }
         }
 
@@ -73,7 +73,7 @@ namespace Census_Analyzer
                 {
                     return true;
                 }
-                throw new CensusAnalyzerException("File type incorrect");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.File_Type_Incorrect, "File type incorrect");
             }
             catch (CensusAnalyzerException)
             {
@@ -91,7 +91,7 @@ namespace Census_Analyzer
                 {
                     if (str.Split(delimiter).Length != 5 && str.Split(delimiter).Length != 4 && str.Split(delimiter).Length != 2)
                     {
-                        throw new CensusAnalyzerException("Incorrect Delimiter");
+                        throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Wrong_Delimeter, "Incorrect Delimiter");
                     }
                 }
                 return true;
@@ -112,7 +112,7 @@ namespace Census_Analyzer
                 {
                     return true;
                 }
-                throw new CensusAnalyzerException("Incorrect header");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Header_Incorrect,"Incorrect header");
             }
             catch (CensusAnalyzerException)
             {
@@ -126,21 +126,21 @@ namespace Census_Analyzer
         {
             string jsonFile = File.ReadAllText(jsonPath);
             //parsing a json file
-            JArray stateCensusrrary = JArray.Parse(jsonFile);
+            JArray CensusArrary = JArray.Parse(jsonFile);
             //sorting in alphabatically
-            for (int i = 0; i < stateCensusrrary.Count - 1; i++)
+            for (int i = 0; i < CensusArrary.Count - 1; i++)
             {
-                for (int j = 0; j < stateCensusrrary.Count - i - 1; j++)
+                for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                 {
-                    if (stateCensusrrary[j][key].ToString().CompareTo(stateCensusrrary[j + 1][key].ToString()) > 0)
+                    if (CensusArrary[j][key].ToString().CompareTo(CensusArrary[j + 1][key].ToString()) > 0)
                     {
-                        var temp = stateCensusrrary[j + 1];
-                        stateCensusrrary[j + 1] = stateCensusrrary[j];
-                        stateCensusrrary[j] = temp;
+                        var temp = CensusArrary[j + 1];
+                        CensusArrary[j + 1] = CensusArrary[j];
+                        CensusArrary[j] = temp;
                     }
                 }
             }
-            return stateCensusrrary;
+            return CensusArrary;
         }
         /// <summary>
         ///Method for Find first state data from json file and sort alphabatically
@@ -171,16 +171,16 @@ namespace Census_Analyzer
         {
             int count = 0;
             string jsonFile = File.ReadAllText(jsonPath);
-            JArray stateCensusrrary = JArray.Parse(jsonFile);
-            for (int i = 0; i < stateCensusrrary.Count - 1; i++)
+            JArray CensusArrary = JArray.Parse(jsonFile);
+            for (int i = 0; i < CensusArrary.Count - 1; i++)
             {
-                for (int j = 0; j < stateCensusrrary.Count - i - 1; j++)
+                for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                 {
-                    if (stateCensusrrary[j][key].ToString().CompareTo(stateCensusrrary[j + 1][key].ToString()) > 0)
+                    if (CensusArrary[j][key].ToString().CompareTo(CensusArrary[j + 1][key].ToString()) > 0)
                     {
-                        var temp = stateCensusrrary[j + 1];
-                        stateCensusrrary[j + 1] = stateCensusrrary[j];
-                        stateCensusrrary[j] = temp;
+                        var temp = CensusArrary[j + 1];
+                        CensusArrary[j + 1] = CensusArrary[j];
+                        CensusArrary[j] = temp;
                         count++;
                     }
                 }
@@ -188,25 +188,25 @@ namespace Census_Analyzer
             return count;
         }
         /// <summary>
-        ///sorting for state population,Density and area
+        ///sorting for state population, Density and Area
         /// </summary>
         public static JArray SortJsonBasedOnKeyAndValueIsNumber(string jsonPath, string sortBy)
         {
             string jsonFile = File.ReadAllText(jsonPath);
-            JArray stateCensusrrary = JArray.Parse(jsonFile);
-            for (int i = 0; i < stateCensusrrary.Count - 1; i++)
+            JArray stateCensusArrary = JArray.Parse(jsonFile);
+            for (int i = 0; i < stateCensusArrary.Count - 1; i++)
             {
-                for (int j = 0; j < stateCensusrrary.Count - i - 1; j++)
+                for (int j = 0; j < stateCensusArrary.Count - i - 1; j++)
                 {
-                    if ((int)stateCensusrrary[j][sortBy] > (int)stateCensusrrary[j + 1][sortBy])
+                    if ((int)stateCensusArrary[j][sortBy] > (int)stateCensusArrary[j + 1][sortBy])
                     {
-                        var temp = stateCensusrrary[j + 1];
-                        stateCensusrrary[j + 1] = stateCensusrrary[j];
-                        stateCensusrrary[j] = temp;
+                        var temp = stateCensusArrary[j + 1];
+                        stateCensusArrary[j + 1] = stateCensusArrary[j];
+                        stateCensusArrary[j] = temp;
                     }
                 }
             }
-            return stateCensusrrary;
+            return stateCensusArrary;
         }
     }
 }

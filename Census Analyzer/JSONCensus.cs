@@ -22,8 +22,8 @@ namespace Census_Analyser
             }
             File.WriteAllText(jsonFilepath, stringBuilder.ToString());
             JArray arr = CSVOperations.SortJsonBasedOnKey(jsonFilepath, sortBy);
-            var jsonArr = JsonConvert.SerializeObject(arr, Formatting.Indented);
-            File.WriteAllText(jsonFilepath, jsonArr);
+            var jsonArray = JsonConvert.SerializeObject(arr, Formatting.Indented);
+            File.WriteAllText(jsonFilepath, jsonArray);
 
             return CSVOperations.RetriveFirstDataOnKey(jsonFilepath, sortBy);
         }
@@ -63,7 +63,7 @@ namespace Census_Analyser
             return count;
         }
         /// <summary>
-        ///sorting the state for population,density and area
+        ///sorting the state for population, Density and Area
         /// </summary>
         public static string SortCSVFileOnNumbersAndWriteInJsonAndReturnData(string filePath, string jsonFilepath, string sortBy)
         {
