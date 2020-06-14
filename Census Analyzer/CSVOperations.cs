@@ -124,89 +124,125 @@ namespace Census_Analyzer
         /// </summary>
         public static JArray SortJsonBasedOnKey(string jsonPath, string sortBy)
         {
-            string jsonFile = File.ReadAllText(jsonPath);
-            //parsing a json file
-            JArray CensusArrary = JArray.Parse(jsonFile);
-            //sorting in alphabatically
-            for (int i = 0; i < CensusArrary.Count - 1; i++)
+            try
             {
-                for (int j = 0; j < CensusArrary.Count - i - 1; j++)
+                string jsonFile = File.ReadAllText(jsonPath);
+                //parsing a json file
+                JArray CensusArrary = JArray.Parse(jsonFile);
+                //sorting in alphabatically
+                for (int i = 0; i < CensusArrary.Count - 1; i++)
                 {
-                    if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
+                    for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                     {
-                        var temp = CensusArrary[j + 1];
-                        CensusArrary[j + 1] = CensusArrary[j];
-                        CensusArrary[j] = temp;
+                        if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
+                        {
+                            var temp = CensusArrary[j + 1];
+                            CensusArrary[j + 1] = CensusArrary[j];
+                            CensusArrary[j] = temp;
+                        }
                     }
                 }
+                return CensusArrary;
             }
-            return CensusArrary;
+            catch
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+            }
         }
         /// <summary>
         ///Method for Find first state data from json file and sort alphabatically
         /// </summary>
         public static string RetriveFirstDataOnKey(string jsonPath, string sortBy)
         {
-            string jfile = File.ReadAllText(jsonPath);
-            JArray jArray = JArray.Parse(jfile);
-            //Find First value in file wchich is alphabatically sorted
-            string val = jArray[0][sortBy].ToString();
-            return val;
+            try
+            {
+                string jfile = File.ReadAllText(jsonPath);
+                JArray jArray = JArray.Parse(jfile);
+                //Find First value in file wchich is alphabatically sorted
+                string val = jArray[0][sortBy].ToString();
+                return val;
+            }
+            catch
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+            }
         }
         /// <summary>
         ///Method for Find Last test data from json file and sort alphabatically
         /// </summary>
         public static string RetriveLastDataOnKey(string jsonPath, string sortBy)
         {
-            string jfile = File.ReadAllText(jsonPath);
-            JArray jArray = JArray.Parse(jfile);
-            //Find last value in file which is alphabatically sorted
-            string val = jArray[jArray.Count - 1][sortBy].ToString();
-            return val;
+            try
+            {
+                string jfile = File.ReadAllText(jsonPath);
+                JArray jArray = JArray.Parse(jfile);
+
+                //Find last value in file which is alphabatically sorted
+                string val = jArray[jArray.Count - 1][sortBy].ToString();
+                return val;
+            }
+            catch
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+            }
         }
         /// <summary>
         ///method to check population is sorted or not
         /// </summary>
         public static int SortJsonBasedOnKeyAndReturnNumberOfStatesSorted(string jsonPath, string sortBy)
         {
-            int count = 0;
-            string jsonFile = File.ReadAllText(jsonPath);
-            JArray CensusArrary = JArray.Parse(jsonFile);
-            for (int i = 0; i < CensusArrary.Count - 1; i++)
+            try
             {
-                for (int j = 0; j < CensusArrary.Count - i - 1; j++)
+                int count = 0;
+                string jsonFile = File.ReadAllText(jsonPath);
+                JArray CensusArrary = JArray.Parse(jsonFile);
+                for (int i = 0; i < CensusArrary.Count - 1; i++)
                 {
-                    if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
+                    for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                     {
-                        var temp = CensusArrary[j + 1];
-                        CensusArrary[j + 1] = CensusArrary[j];
-                        CensusArrary[j] = temp;
-                        count++;
+                        if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
+                        {
+                            var temp = CensusArrary[j + 1];
+                            CensusArrary[j + 1] = CensusArrary[j];
+                            CensusArrary[j] = temp;
+                            count++;
+                        }
                     }
                 }
+                return count;
             }
-            return count;
+            catch
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");''
+            }
         }
         /// <summary>
         ///sorting for state population, Density and Area
         /// </summary>
         public static JArray SortJsonBasedOnKeyAndValueIsNumber(string jsonPath, string sortBy)
         {
-            string jsonFile = File.ReadAllText(jsonPath);
-            JArray stateCensusArrary = JArray.Parse(jsonFile);
-            for (int i = 0; i < stateCensusArrary.Count - 1; i++)
+            try
             {
-                for (int j = 0; j < stateCensusArrary.Count - i - 1; j++)
+                string jsonFile = File.ReadAllText(jsonPath);
+                JArray stateCensusArrary = JArray.Parse(jsonFile);
+                for (int i = 0; i < stateCensusArrary.Count - 1; i++)
                 {
-                    if ((int)stateCensusArrary[j][sortBy] > (int)stateCensusArrary[j + 1][sortBy])
+                    for (int j = 0; j < stateCensusArrary.Count - i - 1; j++)
                     {
-                        var temp = stateCensusArrary[j + 1];
-                        stateCensusArrary[j + 1] = stateCensusArrary[j];
-                        stateCensusArrary[j] = temp;
+                        if ((int)stateCensusArrary[j][sortBy] < (int)stateCensusArrary[j + 1][sortBy])
+                        {
+                            var temp = stateCensusArrary[j + 1];
+                            stateCensusArrary[j + 1] = stateCensusArrary[j];
+                            stateCensusArrary[j] = temp;
+                        }
                     }
                 }
+                return stateCensusArrary;
             }
-            return stateCensusArrary;
+            catch
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+            }
         }
     }
 }
