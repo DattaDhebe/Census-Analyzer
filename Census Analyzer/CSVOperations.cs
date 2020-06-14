@@ -200,7 +200,7 @@ namespace Census_Analyzer
                 {
                     for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                     {
-                        if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
+                        if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) < 0)
                         {
                             var temp = CensusArrary[j + 1];
                             CensusArrary[j + 1] = CensusArrary[j];
@@ -213,7 +213,7 @@ namespace Census_Analyzer
             }
             catch
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");''
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
             }
         }
         /// <summary>
