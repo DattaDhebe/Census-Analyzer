@@ -1,10 +1,10 @@
-using NUnit.Framework;
-using static Census_Analyzer.StateCensusAnalyzer;
-using static Census_Analyzer.StateCodeCensusDAO;
-using Census_Analyser;
-
 namespace Census_Analyzer
 {
+    using Census_Analyser;
+    using static Census_Analyzer.StateCensusAnalyzer;
+    using static Census_Analyzer.StateCodeCensusDAO;
+    using NUnit.Framework;
+
     public class Tests
     {
 
@@ -171,6 +171,21 @@ namespace Census_Analyzer
             Assert.AreEqual("Andhra Pradesh", firstState);
         }
         /// <summary>
+        /// Givens Data when passed wrong state name should return Exception
+        /// </summary>
+        [Test]
+        public void GivenCSVAndJsonPathToAddIntoJSon_AfterSorting_WhenAnalyse_ReturnException()
+        {
+            try
+            {
+                Assert.Throws<CensusAnalyzerException>(() => JSONCensus.SortCSVFileWriteInJsonAndReturnFirstData(Csv_Census_File_Path, StateCensus_Json_File_Path, "Datta"));
+            }
+            catch (CensusAnalyzerException)
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
+            }
+        }
+        /// <summary>
         /// Givens the CSV and json path to add into json after sorting when analyse return Last State.
         /// </summary>
         [Test]
@@ -178,6 +193,21 @@ namespace Census_Analyzer
         {
             string lastState = JSONCensus.SortCSVFileWriteInJsonAndReturnLastData(Csv_Census_File_Path, StateCensus_Json_File_Path, "State");
             Assert.AreEqual("West Bengal", lastState);
+        }
+        /// <summary>
+        /// Given Wrong StateCode Path should Return Custom Exception
+        /// </summary>
+        [Test]
+        public void GivenWrongStateCodeFile_AfterSorting_WhenAnalyse_ShouldReturnException()
+        {
+            try
+            {
+                Assert.Throws<CensusAnalyzerException>(() => JSONCensus.SortCSVFileWriteInJsonAndReturnFirstData(Csv_Census_File_Path, StateCode_Json_File_Path, "StateCode"));
+            }
+            catch (CensusAnalyzerException)
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
+            }
         }
         /// <summary>
         /// UC-4 : Givens CSV and json path to add into json after sorting should return First StateCode
@@ -243,6 +273,15 @@ namespace Census_Analyzer
             Assert.AreEqual("92.32", PopulationDensity);
         }
         /// <summary>
+        /// Given the state of the CSV and json path to add into json after sorted based on population and density to return first value
+        /// </summary>
+        [Test]
+        public void GivenCSVAndJsonPathToAddIntoJSon_AfterSortingOnPopulationDensity_WhenAnalyse_ReturnLessPopulationDensity()
+        {
+            string PopulationDensity = JSONCensus.SortCSVFileWriteInJsonAndReturnFirstData(Csv_USCensus_File_Path, USCensus_Json_File_Path, "Population Density");
+            Assert.AreEqual("0.46", PopulationDensity);
+        }
+        /// <summary>
         /// UC-11 : Given State Census Data After Sorting on Density Area Should Return Population Area
         /// </summary>
         [Test]
@@ -251,5 +290,33 @@ namespace Census_Analyzer
             string Totalarea = JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(Csv_USCensus_File_Path, USCensus_Json_File_Path, "Total area");
             Assert.AreEqual("94326.27", Totalarea);
         }
+        [Test]
+        public void GivenWrongCSVAndJsonDataToAddIntoJSon_AfterSortingOnDensityArea_WhenAnalyse_ReturnCustomException()
+        {            
+            try
+            {
+                Assert.Throws<CensusAnalyzerException>(() => JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(Csv_Census_File_Path, USCensus_Json_File_Path, "Total area"));
+            }
+            catch (CensusAnalyzerException)
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
+            }
+        }
+        /// <summary>
+        /// Given Wrong File Path in US Census Should Return Custom Exception
+        /// </summary>
+        [Test]
+        public void GivenWrongCSVAndJsonDataToAddIntoJSon_AfterSortingOnPopulationDensity_WhenAnalyse_ReturnException()
+        {
+            try
+            {
+                Assert.Throws<CensusAnalyzerException>(() => JSONCensus.SortCSVFileOnNumbersAndWriteInJsonAndReturnData(Csv_Census_File_Path, USCensus_Json_File_Path, "Population Density"));
+            }
+            catch (CensusAnalyzerException)
+            {
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
+            }
+        }
+
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-
-namespace Census_Analyzer
+﻿namespace Census_Analyzer
 {
+    using System;
 
     [Serializable]
     public class CensusAnalyzerException : Exception

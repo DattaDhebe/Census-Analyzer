@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.IO;
-
-namespace Census_Analyzer
+﻿namespace Census_Analyzer
 {
+    using Newtonsoft.Json.Linq;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     /// <summary>
     ///class for csv file operations
     /// </summary>
@@ -146,7 +147,7 @@ namespace Census_Analyzer
             }
             catch
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
             }
         }
         /// <summary>
@@ -164,7 +165,7 @@ namespace Census_Analyzer
             }
             catch
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
             }
         }
         /// <summary>
@@ -176,14 +177,14 @@ namespace Census_Analyzer
             {
                 string jfile = File.ReadAllText(jsonPath);
                 JArray jArray = JArray.Parse(jfile);
-
+                JArray sorted = new JArray(jArray.OrderBy(obj => (string)obj[sortBy]));
                 //Find last value in file which is alphabatically sorted
-                string val = jArray[jArray.Count - 1][sortBy].ToString();
+                string val = sorted[sorted.Count - 1][sortBy].ToString();
                 return val;
             }
             catch
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
             }
         }
         /// <summary>
@@ -200,7 +201,7 @@ namespace Census_Analyzer
                 {
                     for (int j = 0; j < CensusArrary.Count - i - 1; j++)
                     {
-                        if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) < 0)
+                        if (CensusArrary[j][sortBy].ToString().CompareTo(CensusArrary[j + 1][sortBy].ToString()) > 0)
                         {
                             var temp = CensusArrary[j + 1];
                             CensusArrary[j + 1] = CensusArrary[j];
@@ -213,36 +214,9 @@ namespace Census_Analyzer
             }
             catch
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
             }
         }
-        /// <summary>
-        ///sorting for state population, Density and Area
-        /// </summary>
-        public static JArray SortJsonBasedOnKeyAndValueIsNumber(string jsonPath, string sortBy)
-        {
-            try
-            {
-                string jsonFile = File.ReadAllText(jsonPath);
-                JArray stateCensusArrary = JArray.Parse(jsonFile);
-                for (int i = 0; i < stateCensusArrary.Count - 1; i++)
-                {
-                    for (int j = 0; j < stateCensusArrary.Count - i - 1; j++)
-                    {
-                        if ((int)stateCensusArrary[j][sortBy] < (int)stateCensusArrary[j + 1][sortBy])
-                        {
-                            var temp = stateCensusArrary[j + 1];
-                            stateCensusArrary[j + 1] = stateCensusArrary[j];
-                            stateCensusArrary[j] = temp;
-                        }
-                    }
-                }
-                return stateCensusArrary;
-            }
-            catch
-            {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
-            }
-        }
+        
     }
 }

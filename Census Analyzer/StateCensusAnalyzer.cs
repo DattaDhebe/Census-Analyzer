@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Census_Analyzer
+﻿namespace Census_Analyzer
 {
+    using System;
     public class StateCensusAnalyzer : ICSVBuilder
     {
         public string filepath;

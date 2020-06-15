@@ -1,12 +1,12 @@
-﻿using ChoETL;
-using Census_Analyzer;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.IO;
-using System.Text;
-
-namespace Census_Analyser
+﻿namespace Census_Analyser
 {
+    using ChoETL;
+    using Census_Analyzer;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using System.IO;
+    using System.Text;
+
     public class JSONCensus
     {
         /// <summary>
@@ -42,7 +42,7 @@ namespace Census_Analyser
         {
             LoadCSVData(filePath, jsonFilepath);
             ConvertInJArrayFormat(jsonFilepath, sortBy); 
-            CSVOperations.SortJsonBasedOnKeyAndValueIsNumber(jsonFilepath, sortBy);
+            //CSVOperations.SortJsonBasedOnKeyAndValueIsNumber(jsonFilepath, sortBy);
             return CSVOperations.RetriveLastDataOnKey(jsonFilepath, sortBy);
         }
 
@@ -63,7 +63,7 @@ namespace Census_Analyser
             }
             catch
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
             }
         }
 
@@ -79,7 +79,7 @@ namespace Census_Analyser
             }
             catch
             {
-                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "");
+                throw new CensusAnalyzerException(CensusAnalyzerException.ExceptionType.Invalid_Census_Data, "Invalid Census Data");
             }
         }
     }
